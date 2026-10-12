@@ -1,0 +1,104 @@
+{
+  "app": "dpmlb-vyvesky",
+  "version": 1,
+  "poster": {
+    "v": 1,
+    "id": "v-edvyuzunpa8",
+    "name": "Debř, škola – přesun zastávky (vzor)",
+    "updatedAt": "2026-10-12T20:06:50.048Z",
+    "format": "a4l",
+    "type": "presun",
+    "lines": [
+      {
+        "id": "l-i1kzmpsnpa8",
+        "label": "61"
+      }
+    ],
+    "headline": "Omezení dopravy",
+    "title": "Přesun zastávky Debř, škola",
+    "dateFrom": "2026-09-22",
+    "dateTo": "2026-10-31",
+    "timeLimit": "",
+    "dateTextAuto": false,
+    "dateText": "od úterý 22. září 2026 do pátku 31. října",
+    "reason": "stavební výkopové práce na havárii vodovodu",
+    "reasonVerb": "jsou",
+    "extraInfo": "",
+    "descHeading": "Popis změny",
+    "descAuto": false,
+    "description": "**Od úterý 22. září do pátku 31. října** dochází k dočasnému **přemístění autobusové zastávky „Debř, škola“ ve směru na Hrdlořezy**.\n\nV provozu bude po tuto dobu náhradní stanoviště zastávky. Důvodem jsou stavební výkopové práce na havárii vodovodu.",
+    "linkLabel": "více informací\no výluce na",
+    "linkText": "www. dpmlb.cz",
+    "qrUrl": "https://dpmlb.cz/",
+    "showQr": true,
+    "stops": [
+      {
+        "id": "z-4ww06f2npa8",
+        "name": "Debř, škola",
+        "lineIds": [],
+        "direction": "Hrdlořezy",
+        "kind": "zrusena",
+        "note": "",
+        "pairId": "",
+        "shift": "za",
+        "distance": "",
+        "pos": {
+          "x": 0.5274,
+          "y": 0.588
+        },
+        "labelSide": "right",
+        "arrow": "left",
+        "showOnMap": true
+      },
+      {
+        "id": "z-787y62qnpa8",
+        "name": "Debř, škola",
+        "lineIds": [],
+        "direction": "Hrdlořezy",
+        "kind": "presunuta",
+        "note": "",
+        "pairId": "z-4ww06f2npa8",
+        "shift": "za",
+        "distance": "",
+        "pos": {
+          "x": 0.4346,
+          "y": 0.5037
+        },
+        "labelSide": "left",
+        "arrow": "left",
+        "showOnMap": true
+      },
+      {
+        "id": "z-ex89f91npa8",
+        "name": "Debř, škola",
+        "lineIds": [],
+        "direction": "Mladá Boleslav",
+        "kind": "beze",
+        "note": "zastávka ve směru\nMladá Boleslav\nzůstává v původní\npoloze",
+        "pairId": "",
+        "shift": "za",
+        "distance": "",
+        "pos": {
+          "x": 0.5616,
+          "y": 0.6654
+        },
+        "labelSide": "below",
+        "arrow": "right",
+        "showOnMap": true
+      }
+    ],
+    "route": {
+      "dirRight": "",
+      "dirLeft": "",
+      "bothWays": true
+    },
+    "map": {
+      "mode": "background",
+      "image": "assets/vzory/debr-skola-mapa.jpg",
+      "imageName": "debr-skola-mapa.jpg (z předlohy)",
+      "showMoveArrow": false,
+      "showSchemeNote": true,
+      "showLegend": true
+    }
+  }
+}

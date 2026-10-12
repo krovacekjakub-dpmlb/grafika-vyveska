@@ -1,0 +1,127 @@
+{
+  "app": "dpmlb-vyvesky",
+  "version": 1,
+  "poster": {
+    "v": 1,
+    "id": "v-ixan4etnpad",
+    "name": "TEST – více linek",
+    "updatedAt": "2026-10-12T20:06:50.053Z",
+    "format": "a4l",
+    "type": "presun",
+    "lines": [
+      {
+        "id": "l-bpf4qk8npad",
+        "label": "1"
+      },
+      {
+        "id": "l-xzklh7tnpad",
+        "label": "3"
+      },
+      {
+        "id": "l-ydncz2xnpad",
+        "label": "7"
+      },
+      {
+        "id": "l-xqzecwpnpad",
+        "label": "12"
+      },
+      {
+        "id": "l-lisz98bnpad",
+        "label": "25"
+      },
+      {
+        "id": "l-zjsy17xnpad",
+        "label": "61"
+      },
+      {
+        "id": "l-947pl7anpad",
+        "label": "62"
+      },
+      {
+        "id": "l-zutnvwonpad",
+        "label": "140"
+      },
+      {
+        "id": "l-8q387p8npad",
+        "label": "N91"
+      }
+    ],
+    "headline": "Omezení dopravy",
+    "title": "Přesun zastávky Testovací náměstí",
+    "dateFrom": "2026-12-01",
+    "dateTo": "2027-01-15",
+    "timeLimit": "",
+    "dateTextAuto": true,
+    "dateText": "",
+    "reason": "stavební práce",
+    "reasonVerb": "auto",
+    "extraInfo": "",
+    "descHeading": "Popis změny",
+    "descAuto": true,
+    "description": "",
+    "linkLabel": "více informací\no výluce na",
+    "linkText": "www.dpmlb.cz",
+    "qrUrl": "https://dpmlb.cz/",
+    "showQr": true,
+    "stops": [
+      {
+        "id": "z-cdg21eonpad",
+        "name": "Testovací náměstí",
+        "lineIds": [],
+        "direction": "Centrum",
+        "kind": "zrusena",
+        "note": "",
+        "pairId": "",
+        "shift": "za",
+        "distance": "",
+        "pos": null,
+        "labelSide": "auto",
+        "arrow": "auto",
+        "showOnMap": true
+      },
+      {
+        "id": "z-mucwet7npad",
+        "name": "Testovací náměstí",
+        "lineIds": [],
+        "direction": "Centrum",
+        "kind": "presunuta",
+        "note": "",
+        "pairId": "z-cdg21eonpad",
+        "shift": "za",
+        "distance": "cca 60 m",
+        "pos": null,
+        "labelSide": "auto",
+        "arrow": "auto",
+        "showOnMap": true
+      },
+      {
+        "id": "z-dllnrugnpad",
+        "name": "Testovací náměstí",
+        "lineIds": [],
+        "direction": "Nádraží",
+        "kind": "beze",
+        "note": "",
+        "pairId": "",
+        "shift": "za",
+        "distance": "",
+        "pos": null,
+        "labelSide": "auto",
+        "arrow": "auto",
+        "showOnMap": true
+      }
+    ],
+    "route": {
+      "dirRight": "",
+      "dirLeft": "",
+      "bothWays": true
+    },
+    "map": {
+      "mode": "auto",
+      "image": "",
+      "imageName": "",
+      "showMoveArrow": false,
+      "showSchemeNote": true,
+      "showLegend": true
+    }
+  }
+}

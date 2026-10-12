@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Výlukové vývěsky DPMLB – editor</title>
+<link rel="stylesheet" href="css/poster.css">
+<link rel="stylesheet" href="css/editor.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><span class="brand-mark">!</span><div><strong>Výlukové vývěsky</strong><small>Dopravní podnik Mladá Boleslav</small></div></div>
+  <nav class="actions">
+    <button type="button" data-act="new">Nová</button>
+    <button type="button" data-act="library">Uložené vývěsky</button>
+    <button type="button" data-act="samples">Vzory a testy</button>
+    <button type="button" data-act="duplicate" title="Vytvořit novou vývěsku podle této">Duplikovat</button>
+    <button type="button" data-act="export">Export JSON</button>
+    <button type="button" data-act="import">Import JSON</button>
+    <input type="file" id="import-file" accept="application/json,.json" hidden>
+    <span class="save-state" id="save-state"></span>
+    <button type="button" class="primary" data-act="print">Otevřít tiskovou stránku</button>
+  </nav>
+</header>
+
+<main class="layout">
+  <section class="editor">
+    <ol class="steps" id="steps">
+      <li><button type="button" data-step="zakladni" class="on"><b>1</b> Základní informace</button></li>
+      <li><button type="button" data-step="zastavky"><b>2</b> Zastávky</button></li>
+      <li><button type="button" data-step="mapa"><b>3</b> Mapka</button></li>
+      <li><button type="button" data-step="text"><b>4</b> Text vývěsky</button></li>
+      <li><button type="button" data-step="kontrola"><b>5</b> Kontrola a tisk <span class="badge" id="warn-count"></span></button></li>
+    </ol>
+    <form id="form" autocomplete="off" onsubmit="return false"></form>
+  </section>
+
+  <section class="preview-col">
+    <div class="preview-head">
+      <span><b>Pracovní náhled</b> – pouze orientační, pro tisk použijte tiskovou stránku</span>
+      <span id="fmt-label"></span>
+    </div>
+    <div class="preview-wrap" id="preview-wrap"><div class="preview-scale" id="preview-scale"><div id="preview"></div></div></div>
+    <p class="drag-hint" id="drag-hint" hidden>Tip: značky zastávek na podkladové mapě můžete v náhledu přetáhnout myší.</p>
+    <div class="warnings" id="warnings"></div>
+  </section>
+</main>
+
+<p class="never print-msg">Toto je editor. Vývěsku tiskněte z tiskové stránky (tlačítko „Otevřít tiskovou stránku“).</p>
+<dialog id="dlg"><form method="dialog" class="dlg-inner"><div id="dlg-body"></div><div class="dlg-foot"><button value="close">Zavřít</button></div></form></dialog>
+
+<script src="js/util.js"></script>
+<script src="js/model.js"></script>
+<script src="js/text.js"></script>
+<script src="js/qr.js"></script>
+<script src="js/map.js"></script>
+<script src="js/samples.js"></script>
+<script src="js/poster.js"></script>
+<script src="js/editor.js"></script>
+</body>
+</html>

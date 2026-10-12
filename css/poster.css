@@ -1,0 +1,143 @@
+/* DPMLB – výlukové vývěsky: grafika vývěsky (náhled i tisk)
+ * Rozměry odpovídají předloze 03e-vyluka_zastavky.pdf (A5 na šířku), v jednotkách
+ * --u = 1 mm předlohy × měřítko formátu (--k). Pro A4 na šířku je --k = 297/210.
+ */
+
+/* Písmo: předloha používá Alcyone (licencované písmo DPMLB). Pokud je nainstalované
+   v systému nebo jsou jeho soubory ve fonts/alcyone/, použije se. Jinak náhradní Poppins (OFL). */
+@font-face { font-family: 'DPMLB Alcyone'; font-weight: 300; src: local('Alcyone Light'), local('Alcyone-Light'), url('../fonts/alcyone/Alcyone-Light.woff2') format('woff2'), url('../fonts/alcyone/Alcyone-Light.otf') format('opentype'); }
+@font-face { font-family: 'DPMLB Alcyone'; font-weight: 400; src: local('Alcyone Regular'), local('Alcyone-Regular'), url('../fonts/alcyone/Alcyone-Regular.woff2') format('woff2'), url('../fonts/alcyone/Alcyone-Regular.otf') format('opentype'); }
+@font-face { font-family: 'DPMLB Alcyone'; font-weight: 600; src: local('Alcyone SemiBold'), local('Alcyone-SemiBold'), url('../fonts/alcyone/Alcyone-SemiBold.woff2') format('woff2'), url('../fonts/alcyone/Alcyone-SemiBold.otf') format('opentype'); }
+@font-face { font-family: 'DPMLB Alcyone'; font-weight: 700; src: local('Alcyone Bold'), local('Alcyone-Bold'), url('../fonts/alcyone/Alcyone-Bold.woff2') format('woff2'), url('../fonts/alcyone/Alcyone-Bold.otf') format('opentype'); }
+
+@font-face { font-family: 'DPMLB Poppins'; font-weight: 300; src: url('../fonts/poppins/Poppins-Light.woff') format('woff'); }
+@font-face { font-family: 'DPMLB Poppins'; font-weight: 400; src: url('../fonts/poppins/Poppins-Regular.woff') format('woff'); }
+@font-face { font-family: 'DPMLB Poppins'; font-weight: 500; src: url('../fonts/poppins/Poppins-Medium.woff') format('woff'); }
+@font-face { font-family: 'DPMLB Poppins'; font-weight: 600 700; src: url('../fonts/poppins/Poppins-Bold.woff') format('woff'); }
+
+.poster {
+  --orange: #EF7C00;
+  --red: #D6130E;
+  --blue: #274C77;
+  --panel: #EBEBEB;
+  --u: calc(var(--k) * 1mm);
+  --pt: calc(var(--k) * 1pt);
+  position: relative;
+  width: var(--pw);
+  height: var(--ph);
+  overflow: hidden;
+  background: #fff;
+  color: var(--blue);
+  font-family: 'DPMLB Alcyone', 'DPMLB Poppins', sans-serif;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+  font-kerning: normal;
+  text-rendering: geometricPrecision;
+  box-sizing: border-box;
+}
+.poster *, .poster *::before, .poster *::after { box-sizing: border-box; }
+.poster .p-inner { position: absolute; left: 0; top: 0; width: calc(var(--u) * 210); }
+
+/* ---------- Záhlaví ---------- */
+.poster .p-head { position: absolute; left: 0; top: 0; width: 100%; height: calc(var(--u) * 28.19); background: var(--orange); }
+.poster .p-line {
+  position: absolute; background: #fff; color: var(--orange);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: calc(var(--fs) * var(--pt)); line-height: 1; letter-spacing: -0.01em;
+  overflow: hidden; white-space: nowrap;
+}
+.poster .p-line span { display: block; padding-top: 0.06em; }
+.poster .p-warn-wrap { position: absolute; top: calc(var(--u) * 10.54); width: calc(var(--u) * 8.26); height: calc(var(--u) * 6.99); }
+.poster .p-warn-wrap svg { display: block; width: 100%; height: 100%; }
+.poster .p-titles {
+  position: absolute; top: 0; height: calc(var(--u) * 28.19); right: calc(var(--u) * 26.5);
+  display: flex; flex-direction: column; justify-content: center; color: #fff; overflow: hidden;
+}
+.poster .p-headline, .poster .p-title { font-size: calc(var(--pt) * 18); line-height: calc(var(--pt) * 18); }
+.poster .p-headline { font-weight: 300; white-space: nowrap; }
+.poster .p-title { font-weight: 700; }
+.poster .p-logo { position: absolute; left: calc(var(--u) * 186.13); top: calc(var(--u) * 7.373); width: calc(var(--u) * 15.875); height: calc(var(--u) * 13.264); }
+
+/* ---------- Termín ---------- */
+.poster .p-datebar {
+  position: absolute; left: 0; top: calc(var(--u) * 28.19); width: 100%; height: calc(var(--u) * 9.91);
+  background: var(--red); color: #fff; display: flex; align-items: center;
+  padding: 0 calc(var(--u) * 6) 0 calc(var(--u) * 8.65); overflow: hidden;
+}
+.poster .p-datebar span { font-weight: 600; font-size: calc(var(--pt) * 10.3); line-height: 1.2; white-space: nowrap; padding-top: 0.08em; }
+
+/* ---------- Mapa ---------- */
+.poster .p-map { position: absolute; left: calc(var(--u) * 4.45); top: calc(var(--u) * 42.04); width: calc(var(--u) * 138.15); height: calc(var(--u) * 102.11); overflow: hidden; }
+.poster .m-svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.poster .m-overlay { position: absolute; inset: 0; pointer-events: none; }
+.poster .m-label { pointer-events: auto; }
+/* jednotka mapy: 1 mm mapy předlohy × měřítko mapy */
+.poster .p-map { --mu: calc(var(--mk) * 1mm); --mpt: calc(var(--mk) * 1pt); }
+.poster .m-label {
+  position: absolute; white-space: nowrap; background: rgba(255, 255, 255, 0.72);
+  padding: calc(var(--mu) * 0.55) calc(var(--mu) * 1.2) calc(var(--mu) * 0.75);
+}
+.poster .m-label.lbl-orange, .poster .m-label.lbl-red, .poster .m-label.lbl-grey {
+  font-weight: 700; font-size: calc(var(--mpt) * 11.2); line-height: calc(var(--mpt) * 9.6);
+}
+.poster .m-label.lbl-orange { color: var(--orange); }
+.poster .m-label.lbl-red { color: var(--red); }
+.poster .m-label.lbl-grey { color: #7d8996; }
+.poster .m-label.side-left { text-align: right; }
+.poster .m-label.side-right { text-align: left; }
+.poster .m-label.lbl-note {
+  color: var(--blue); font-weight: 400; font-size: calc(var(--mpt) * 8.2); line-height: calc(var(--mpt) * 8);
+  text-align: center; white-space: normal; width: max-content; max-width: calc(var(--mu) * 30.1);
+  padding: calc(var(--mu) * 1.1) calc(var(--mu) * 1.6) calc(var(--mu) * 1.3);
+}
+.poster .m-label.lbl-note:not(:has(br)) { width: calc(var(--mu) * 30.1); }
+.poster .m-label.lbl-note:has(br) { white-space: nowrap; max-width: none; }
+.poster .m-svg text { font-family: 'DPMLB Alcyone', 'DPMLB Poppins', sans-serif; }
+.poster .m-note { font-size: 19px; fill: #6f7d8c; font-style: italic; }
+.poster .m-dist { font-size: 24px; font-weight: 700; fill: var(--orange); paint-order: stroke; stroke: #fff; stroke-width: 6px; stroke-linejoin: round; }
+.poster .m-roaddir { font-size: 27px; font-weight: 700; fill: #fff; }
+.poster .m-sitename { font-size: 30px; font-weight: 700; fill: var(--blue); }
+.poster .r-line { fill: none; stroke-linejoin: round; stroke-linecap: round; }
+.poster .r-line.served { stroke: var(--blue); stroke-width: 14px; }
+.poster .r-line.div { stroke: var(--orange); stroke-width: 14px; }
+.poster .r-line.orig { stroke: #9AA6B2; stroke-width: 9px; stroke-dasharray: 22 14; stroke-linecap: butt; }
+.poster .r-name { font-weight: 700; fill: var(--blue); }
+.poster .r-name.is-off { fill: #8b97a4; font-weight: 600; }
+.poster .r-name.is-new { fill: #c86400; }
+.poster .r-only { font-weight: 400; font-size: 0.8em; }
+.poster .r-dir { font-size: 25px; font-weight: 600; fill: var(--blue); }
+.poster .r-badge { font-weight: 700; fill: #fff; }
+.poster .r-legend { font-size: 23px; fill: var(--blue); }
+.poster .editor-only { display: none; }
+.poster.is-editing .editor-only { display: inline; }
+
+/* ---------- Panel Popis změny ---------- */
+.poster .p-panel { position: absolute; left: calc(var(--u) * 146.94); top: calc(var(--u) * 38.1); right: 0; bottom: 0; background: var(--panel); }
+.poster .p-watermark { position: absolute; left: calc(var(--u) * 8.13); top: calc(var(--u) * 45.34); width: calc(var(--u) * 46.73); height: calc(var(--u) * 39.5); }
+.poster .p-h2 { position: absolute; margin: 0; left: calc(var(--u) * 6.72); top: calc(var(--u) * 3.6); font-weight: 700; font-size: calc(var(--pt) * 18); line-height: calc(var(--pt) * 21); color: var(--blue); white-space: nowrap; }
+.poster .p-desc {
+  position: absolute; left: calc(var(--u) * 6.72); top: calc(var(--u) * 15.75); width: calc(var(--u) * 48);
+  bottom: calc(var(--u) * 17.4); overflow: hidden;
+  font-size: calc(var(--pt) * 7); line-height: calc(var(--pt) * 8); font-weight: 400; color: var(--blue);
+  hyphens: manual; overflow-wrap: break-word;
+}
+.poster .p-desc p { margin: 0 0 calc(var(--pt) * 4); }
+.poster .p-desc strong { font-weight: 700; }
+.poster .p-more { position: absolute; right: calc(var(--u) * 4.4); bottom: calc(var(--u) * 4.45); display: flex; align-items: flex-end; gap: calc(var(--u) * 1.65); }
+.poster .p-more-txt { text-align: right; display: flex; flex-direction: column; align-items: flex-end; max-width: calc(var(--u) * 44); }
+.poster .p-more-txt strong { font-weight: 700; font-size: calc(var(--pt) * 7.9); line-height: calc(var(--pt) * 7.6); white-space: nowrap; }
+.poster .p-more-txt span { font-weight: 400; font-size: calc(var(--pt) * 7.9); line-height: calc(var(--pt) * 9); margin-top: calc(var(--u) * 2.15); margin-bottom: calc(var(--u) * -0.35); white-space: nowrap; max-width: 100%; overflow: hidden; }
+.poster .p-qr { width: calc(var(--u) * 9.9); height: calc(var(--u) * 9.9); flex: none; }
+.poster .p-qr svg { display: block; width: 100%; height: 100%; }
+
+/* ---------- A4 na výšku (odvozená varianta) ---------- */
+.poster.port .p-map { left: calc(var(--u) * 4.45); top: calc(var(--u) * 42.04); width: calc(var(--u) * 201.1); height: calc(var(--u) * 148.64); }
+.poster.port .p-panel { left: 0; top: calc(var(--u) * 194.8); }
+.poster.port .p-h2 { left: calc(var(--u) * 8.65); top: calc(var(--u) * 6); font-size: calc(var(--pt) * 22); line-height: calc(var(--pt) * 26); }
+.poster.port .p-desc { left: calc(var(--u) * 8.65); top: calc(var(--u) * 20.5); width: calc(var(--u) * 128); bottom: calc(var(--u) * 6); font-size: calc(var(--pt) * 10); line-height: calc(var(--pt) * 12.5); }
+.poster.port .p-desc p { margin-bottom: calc(var(--pt) * 6); }
+.poster.port .p-watermark { left: auto; right: calc(var(--u) * 8); top: calc(var(--u) * 7); width: calc(var(--u) * 52); height: calc(var(--u) * 44); }
+.poster.port .p-more { right: calc(var(--u) * 6); bottom: calc(var(--u) * 6); }
+.poster.port .p-qr { width: calc(var(--u) * 15); height: calc(var(--u) * 15); }
+.poster.port .p-more-txt strong { font-size: calc(var(--pt) * 9.5); line-height: calc(var(--pt) * 9.5); }
+.poster.port .p-more-txt span { font-size: calc(var(--pt) * 9.5); line-height: calc(var(--pt) * 11); }
